@@ -12,7 +12,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
-import 'package:talawa/views/after_auth_screens/events/event_filter_bottomsheet.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -290,5 +289,15 @@ void main() {
     verify(mockNavigationService.pushScreen("/eventInfo",
             arguments: anyNamed('arguments')))
         .called(1);
+  });
+  testWidgets("Menu button opens drawer", (WidgetTester tester) async {
+    await tester.pumpWidget(createExploreEventsScreen());
+    await tester.pumpAndSettle();
+
+    final menuBtn = find.widgetWithIcon(IconButton, Icons.menu);
+    expect(menuBtn, findsOneWidget);
+
+    await tester.tap(menuBtn);
+    await tester.pumpAndSettle();
   });
 }
